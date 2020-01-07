@@ -40,7 +40,7 @@ public class DashboardConfigurationController {
         		.orElse(ResponseEntity.ok().build());
     }
 	
-	@PostMapping(value = "configuration", consumes = APPLICATION_JSON, produces = APPLICATION_JSON)
+	@PostMapping(value = "/configuration", consumes = APPLICATION_JSON, produces = APPLICATION_JSON)
 	private long createDashboardConfiguration(@RequestHeader("userId") Long userId, @RequestBody DashboardConfiguration dashboardConfiguration) {
 		return dashboardConfigurationService.createDashboardConfiguration(dashboardConfiguration).getId();
 	}
