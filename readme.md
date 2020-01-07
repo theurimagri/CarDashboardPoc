@@ -1,23 +1,18 @@
-# Getting Started
+# Car Dashboard Configuration
 
-### Reference Documentation
-For further reference, please consider the following sections:
+### REST API
+All rest calls expects the userId in the headers.
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.2.2.RELEASE/maven-plugin/)
-* [Spring Configuration Processor](https://docs.spring.io/spring-boot/docs/2.2.2.RELEASE/reference/htmlsingle/#configuration-metadata-annotation-processor)
-* [JDBC API](https://docs.spring.io/spring-boot/docs/2.2.2.RELEASE/reference/htmlsingle/#boot-features-sql)
-* [Spring Data JPA](https://docs.spring.io/spring-boot/docs/2.2.2.RELEASE/reference/htmlsingle/#boot-features-jpa-and-spring-data)
-* [Jersey](https://docs.spring.io/spring-boot/docs/2.2.2.RELEASE/reference/htmlsingle/#boot-features-jersey)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/2.2.2.RELEASE/reference/htmlsingle/#boot-features-developing-web-applications)
+* [GET] /cars: fetch all cars
+* [GET] /users: fetch all users
+* [GET] /configurations: fetch all configurations
+* [GET] /configuration/{carId}: fetch all configurations for particular car and user
+* [POST] /configuration: saves configuration for car and user based on body information.
 
-### Guides
-The following guides illustrate how to use some features concretely:
+### Quick Guide
+SpringBoot application with H2 database in-memory (not durable). The PoC has the following elements:
 
-* [Accessing Relational Data using JDBC with Spring](https://spring.io/guides/gs/relational-data-access/)
-* [Managing Transactions](https://spring.io/guides/gs/managing-transactions/)
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
-
+* Database layer using Spring Data.
+* It is possible to populate the database with "start-up" data, this info is inside data.sql file inside resources folder.
+* Controller and Service layers implements basic funcionalities.
+* Unit tests still to be implemented.
