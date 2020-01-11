@@ -8,6 +8,7 @@ import java.util.stream.StreamSupport;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.globallogic.car.dashboard.entity.Car;
 import com.globallogic.car.dashboard.repository.CarRepository;
@@ -24,6 +25,7 @@ public class CarServiceImpl implements CarService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Set<Car> getAllCars() {
 		return StreamSupport
 				.stream(carRepository.findAll().spliterator(), false)
@@ -31,16 +33,19 @@ public class CarServiceImpl implements CarService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Set<Car> getAllCarsByUserId(Long userId) {
 		return carRepository.findCarByUsersId(userId);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Car getCarById(Long carId) {
 		return carRepository.findById(carId).orElseThrow(() -> new EntityNotFoundException(carId.toString()));
 	}
 
 	@Override
+	@Transactional
 	public void createCar(Car car) {
 		carRepository.save(car);
 	}

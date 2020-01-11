@@ -8,6 +8,7 @@ import java.util.stream.StreamSupport;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.globallogic.car.dashboard.entity.User;
 import com.globallogic.car.dashboard.repository.UserRepository;
@@ -24,6 +25,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	@Transactional(readOnly = true)
 	public Set<User> getAllUsers() {
 		return StreamSupport
 				.stream(userRepository.findAll().spliterator(), false)
@@ -31,11 +33,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public User getUserById(Long userId) {
 		return userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException(userId.toString()));
 	}
 
 	@Override
+	@Transactional
 	public void createUser(User user) {
 		userRepository.save(user);
 	}

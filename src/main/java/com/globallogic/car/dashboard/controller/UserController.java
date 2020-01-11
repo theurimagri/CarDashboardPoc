@@ -1,10 +1,11 @@
 package com.globallogic.car.dashboard.controller;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import static org.springframework.http.HttpStatus.OK;
 
-import java.util.Set;
-
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.globallogic.car.dashboard.entity.User;
@@ -20,8 +21,8 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@GetMapping(value = "/users", produces = APPLICATION_JSON)
-    private Set<User> getAllUsers() {
-        return userService.getAllUsers();
+	@GetMapping(value = "/rest/user", produces = APPLICATION_JSON)
+    private ResponseEntity<User> getUser(@RequestHeader("userId") Long userId) {
+        return new ResponseEntity<>(userService.getUserById(userId), OK);
     }
 }
