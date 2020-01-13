@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.globallogic.car.dashboard.entity.User;
+import com.globallogic.car.dashboard.mapper.UserMapper;
 import com.globallogic.car.dashboard.repository.UserRepository;
 import com.globallogic.car.dashboard.service.spi.UserService;
 
@@ -18,10 +19,12 @@ import com.globallogic.car.dashboard.service.spi.UserService;
 public class UserServiceImpl implements UserService {
 
 	private final UserRepository userRepository;
+	private final UserMapper userMapper;
 	
-	public UserServiceImpl(UserRepository userRepository) {
+	public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
 		super();
 		this.userRepository = userRepository;
+		this.userMapper = userMapper;
 	}
 	
 	@Override
@@ -29,13 +32,16 @@ public class UserServiceImpl implements UserService {
 	public Set<User> getAllUsers() {
 		return StreamSupport
 				.stream(userRepository.findAll().spliterator(), false)
+				//.map(userMapper::userToUserDto)
 			    .collect(toSet());
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public User getUserById(Long userId) {
-		return userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException(userId.toString()));
+		return userRepository.findById(userId)
+				//.map(userMapper::userToUserDto)
+				.orElseThrow(() -> new EntityNotFoundException(userId.toString()));
 	}
 
 	@Override

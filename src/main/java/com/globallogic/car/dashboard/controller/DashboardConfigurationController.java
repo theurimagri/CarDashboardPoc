@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,5 +35,11 @@ public class DashboardConfigurationController {
 	@PostMapping(value = "/rest/configuration", consumes = APPLICATION_JSON, produces = APPLICATION_JSON)
 	private ResponseEntity<Long> createDashboardConfiguration(@RequestHeader("userId") Long userId, @RequestBody DashboardConfiguration dashboardConfiguration) {
 		return new ResponseEntity<>(dashboardConfigurationService.createDashboardConfiguration(dashboardConfiguration).getId(), OK);
+	}
+	
+	@PutMapping(value = "/rest/configuration", consumes = APPLICATION_JSON, produces = APPLICATION_JSON)
+	private ResponseEntity<Long> updateDashboardConfiguration(@RequestHeader("userId") Long userId, @RequestBody DashboardConfiguration dashboardConfiguration) {
+		dashboardConfigurationService.updateDashboardConfiguration(dashboardConfiguration);
+		return new ResponseEntity<>(dashboardConfiguration.getId(), OK);
 	}
 }

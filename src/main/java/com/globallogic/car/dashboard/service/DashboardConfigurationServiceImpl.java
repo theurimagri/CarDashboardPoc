@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.globallogic.car.dashboard.entity.DashboardConfiguration;
+import com.globallogic.car.dashboard.mapper.DashboardConfigurationMapper;
 import com.globallogic.car.dashboard.repository.DashboardConfigurationRepository;
 import com.globallogic.car.dashboard.service.spi.DashboardConfigurationService;
 
@@ -19,10 +20,12 @@ import com.globallogic.car.dashboard.service.spi.DashboardConfigurationService;
 public class DashboardConfigurationServiceImpl implements DashboardConfigurationService {
 
 	private final DashboardConfigurationRepository dashboardConfigurationRepository;
+	private final DashboardConfigurationMapper dashboardConfigurationMapper;
 	
-	public DashboardConfigurationServiceImpl(DashboardConfigurationRepository dashboardConfigurationRepository) {
+	public DashboardConfigurationServiceImpl(DashboardConfigurationRepository dashboardConfigurationRepository, DashboardConfigurationMapper dashboardConfigurationMapper) {
 		super();
 		this.dashboardConfigurationRepository = dashboardConfigurationRepository;
+		this.dashboardConfigurationMapper = dashboardConfigurationMapper;
 	}
 	
 	@Override
@@ -50,5 +53,13 @@ public class DashboardConfigurationServiceImpl implements DashboardConfiguration
 	public DashboardConfiguration createDashboardConfiguration(DashboardConfiguration dashboardConfiguration) {
 		return dashboardConfigurationRepository.save(dashboardConfiguration);
 	}
+
+	@Override
+	public void updateDashboardConfiguration(DashboardConfiguration dashboardConfiguration) {
+		dashboardConfigurationRepository.save(dashboardConfiguration);
+		
+	}
+	
+	
 
 }

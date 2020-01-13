@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.globallogic.car.dashboard.entity.Car;
+import com.globallogic.car.dashboard.mapper.CarMapper;
 import com.globallogic.car.dashboard.repository.CarRepository;
 import com.globallogic.car.dashboard.service.spi.CarService;
 
@@ -18,10 +19,12 @@ import com.globallogic.car.dashboard.service.spi.CarService;
 public class CarServiceImpl implements CarService {
 
 	private final CarRepository carRepository;
+	private final CarMapper carMapper;
 	
-	public CarServiceImpl(CarRepository carRepository) {
+	public CarServiceImpl(CarRepository carRepository, CarMapper carMapper) {
 		super();
 		this.carRepository = carRepository;
+		this.carMapper = carMapper;
 	}
 
 	@Override

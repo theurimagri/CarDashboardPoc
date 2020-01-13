@@ -3,6 +3,8 @@ package com.globallogic.car.dashboard.controller;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.springframework.http.HttpStatus.OK;
 
+import java.util.Set;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -24,5 +26,10 @@ public class UserController {
 	@GetMapping(value = "/rest/user", produces = APPLICATION_JSON)
     private ResponseEntity<User> getUser(@RequestHeader("userId") Long userId) {
         return new ResponseEntity<>(userService.getUserById(userId), OK);
+    }
+	
+	@GetMapping(value = "/rest/users/info", produces = APPLICATION_JSON)
+    private ResponseEntity<Set<User>> getUsersInforation() {
+        return new ResponseEntity<>(userService.getAllUsers(), OK);
     }
 }

@@ -14,4 +14,6 @@ public interface DashboardConfigurationService {
 	Optional<DashboardConfiguration> getDashboardConfigurationByUserAndCar(Long userId, Long carId);
 	
 	DashboardConfiguration createDashboardConfiguration(DashboardConfiguration dashboardConfiguration);
+	
+	void updateDashboardConfiguration(DashboardConfiguration dashboardConfiguration);
 }
