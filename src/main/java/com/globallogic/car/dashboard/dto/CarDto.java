@@ -6,50 +6,50 @@ import com.globallogic.car.dashboard.enums.CarType;
 
 public class CarDto {
 
-	private Long id;
-	private String model;
-	private CarType type;
-	private Set<UserDto> usersDto;
-	private Set<DashboardConfigurationDto> dashboardConfigurationsDto;
+	private Long carId;
+	private String carModel;
+	private CarType carType;
+	private Long userId;
+	private Set<DashboardConfigurationDto> dashboardConfigurations;
 
-	public Long getId() {
-		return id;
+	public Long getCarId() {
+		return carId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setCarId(Long carId) {
+		this.carId = carId;
 	}
 
-	public String getModel() {
-		return model;
+	public String getCarModel() {
+		return carModel;
 	}
 
-	public void setModel(String model) {
-		this.model = model;
+	public void setCarModel(String carModel) {
+		this.carModel = carModel;
 	}
 
-	public CarType getType() {
-		return type;
+	public CarType getCarType() {
+		return carType;
 	}
 
-	public void setType(CarType type) {
-		this.type = type;
+	public void setCarType(CarType carType) {
+		this.carType = carType;
 	}
 
-	public Set<UserDto> getUsersDto() {
-		return usersDto;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setUsers(Set<UserDto> usersDto) {
-		this.usersDto = usersDto;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
-	public Set<DashboardConfigurationDto> getDashboardConfigurationsDto() {
-		return dashboardConfigurationsDto;
+	public Set<DashboardConfigurationDto> getDashboardConfigurations() {
+		return dashboardConfigurations;
 	}
 
-	public void setDashboardConfigurationsDto(Set<DashboardConfigurationDto> dashboardConfigurationsDto) {
-		this.dashboardConfigurationsDto = dashboardConfigurationsDto;
+	public void setDashboardConfigurations(Set<DashboardConfigurationDto> dashboardConfigurationsDto) {
+		this.dashboardConfigurations = dashboardConfigurationsDto;
 	}
 	
 }

@@ -1,45 +1,35 @@
 package com.globallogic.car.dashboard.dto;
 
 import java.util.List;
-import java.util.Set;
 
 public class UserDto {
 
-	private Long id;
-	private String name;
-	private Set<DashboardConfigurationDto> dashboardConfigurationsDto;
-	private List<CarDto> carsDto;
+	private Long userId;
+	private String userName;
+	private List<CarDto> cars;
 	
-	public Long getId() {
-		return id;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
-	public String getName() {
-		return name;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public Set<DashboardConfigurationDto> getDashboardConfigurationsDto() {
-		return dashboardConfigurationsDto;
-	}
-	
-	public void setDashboardConfigurationsDto(Set<DashboardConfigurationDto> dashboardConfigurationsDto) {
-		this.dashboardConfigurationsDto = dashboardConfigurationsDto;
+	public List<CarDto> getCars() {
+		return cars;
 	}
 
-	public List<CarDto> getCarsDto() {
-		return carsDto;
-	}
-
-	public void setCarsDto(List<CarDto> carsDto) {
-		this.carsDto = carsDto;
+	public void setCars(List<CarDto> carsDto) {
+		this.cars = carsDto;
 	}
 	
 }

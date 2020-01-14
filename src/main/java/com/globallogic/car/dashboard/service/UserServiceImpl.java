@@ -10,7 +10,7 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.globallogic.car.dashboard.entity.User;
+import com.globallogic.car.dashboard.dto.UserDto;
 import com.globallogic.car.dashboard.mapper.UserMapper;
 import com.globallogic.car.dashboard.repository.UserRepository;
 import com.globallogic.car.dashboard.service.spi.UserService;
@@ -29,25 +29,19 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public Set<User> getAllUsers() {
+	public Set<UserDto> getAllUsers() {
 		return StreamSupport
 				.stream(userRepository.findAll().spliterator(), false)
-				//.map(userMapper::userToUserDto)
+				.map(userMapper::userToUserDto)
 			    .collect(toSet());
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public User getUserById(Long userId) {
+	public UserDto getUserById(Long userId) {
 		return userRepository.findById(userId)
-				//.map(userMapper::userToUserDto)
+				.map(userMapper::userToUserDto)
 				.orElseThrow(() -> new EntityNotFoundException(userId.toString()));
-	}
-
-	@Override
-	@Transactional
-	public void createUser(User user) {
-		userRepository.save(user);
 	}
 
 }

@@ -47,6 +47,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
+		http.headers().frameOptions().disable();
+		
 		http.sessionManagement().sessionCreationPolicy(STATELESS).and().exceptionHandling().and()
 				.authenticationProvider(provider)
 				.addFilterBefore(authenticationFilter(), AnonymousAuthenticationFilter.class).authorizeRequests()

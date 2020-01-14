@@ -8,12 +8,14 @@ import java.util.Set;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.globallogic.car.dashboard.entity.User;
+import com.globallogic.car.dashboard.dto.UserDto;
 import com.globallogic.car.dashboard.service.spi.UserService;
 
 @RestController
+@RequestMapping("/rest")
 public class UserController {
 
 	private UserService userService;
@@ -23,13 +25,13 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@GetMapping(value = "/rest/user", produces = APPLICATION_JSON)
-    private ResponseEntity<User> getUser(@RequestHeader("userId") Long userId) {
+	@GetMapping(value = "/user", produces = APPLICATION_JSON)
+    private ResponseEntity<UserDto> getUser(@RequestHeader("userId") Long userId) {
         return new ResponseEntity<>(userService.getUserById(userId), OK);
     }
 	
-	@GetMapping(value = "/rest/users/info", produces = APPLICATION_JSON)
-    private ResponseEntity<Set<User>> getUsersInforation() {
+	@GetMapping(value = "/users/info", produces = APPLICATION_JSON)
+    private ResponseEntity<Set<UserDto>> getUsersInforation() {
         return new ResponseEntity<>(userService.getAllUsers(), OK);
     }
 }

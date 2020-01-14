@@ -4,18 +4,18 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.springframework.http.HttpStatus.OK;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.globallogic.car.dashboard.entity.DashboardConfiguration;
+import com.globallogic.car.dashboard.dto.DashboardConfigurationDto;
 import com.globallogic.car.dashboard.service.spi.DashboardConfigurationService;
 
 @RestController
+@RequestMapping("/rest")
 public class DashboardConfigurationController {
 	
 	private DashboardConfigurationService dashboardConfigurationService;
@@ -25,21 +25,14 @@ public class DashboardConfigurationController {
 		this.dashboardConfigurationService = dashboardConfigurationService;
 	}
 
-	@GetMapping(value = "/rest/configuration/{carId}", produces = APPLICATION_JSON)
-    private ResponseEntity<DashboardConfiguration> getDashboardConfiguration(@RequestHeader("userId") Long userId, @PathVariable("carId") Long carId) {
-		return dashboardConfigurationService.getDashboardConfigurationByUserAndCar(userId, carId)
-        		.map(config -> new ResponseEntity<DashboardConfiguration>(config, OK))
-        		.orElse(ResponseEntity.ok().build());
-    }
-	
-	@PostMapping(value = "/rest/configuration", consumes = APPLICATION_JSON, produces = APPLICATION_JSON)
-	private ResponseEntity<Long> createDashboardConfiguration(@RequestHeader("userId") Long userId, @RequestBody DashboardConfiguration dashboardConfiguration) {
-		return new ResponseEntity<>(dashboardConfigurationService.createDashboardConfiguration(dashboardConfiguration).getId(), OK);
+	@PostMapping(value = "/configuration", consumes = APPLICATION_JSON, produces = APPLICATION_JSON)
+	private ResponseEntity<Long> createDashboardConfiguration(@RequestHeader("userId") Long userId, @RequestBody DashboardConfigurationDto dashboardConfigurationDto) {
+		return new ResponseEntity<>(dashboardConfigurationService.createDashboardConfiguration(dashboardConfigurationDto).getConfigurationId(), OK);
 	}
 	
-	@PutMapping(value = "/rest/configuration", consumes = APPLICATION_JSON, produces = APPLICATION_JSON)
-	private ResponseEntity<Long> updateDashboardConfiguration(@RequestHeader("userId") Long userId, @RequestBody DashboardConfiguration dashboardConfiguration) {
-		dashboardConfigurationService.updateDashboardConfiguration(dashboardConfiguration);
-		return new ResponseEntity<>(dashboardConfiguration.getId(), OK);
+	@PutMapping(value = "/configuration", consumes = APPLICATION_JSON, produces = APPLICATION_JSON)
+	private ResponseEntity<Long> updateDashboardConfiguration(@RequestHeader("userId") Long userId, @RequestBody DashboardConfigurationDto dashboardConfigurationDto) {
+		dashboardConfigurationService.updateDashboardConfiguration(dashboardConfigurationDto);
+		return new ResponseEntity<>(dashboardConfigurationDto.getConfigurationId(), OK);
 	}
 }

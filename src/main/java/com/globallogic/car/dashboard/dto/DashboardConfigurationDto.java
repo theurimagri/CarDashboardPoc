@@ -2,25 +2,17 @@ package com.globallogic.car.dashboard.dto;
 
 public class DashboardConfigurationDto {
 
-	private Long id;
-	private UserDto userDto;
+	private Long configurationId;
+	private Long userId;
 	private String file;
-	private CarDto carDto;
+	private Long carId;
 	
-	public Long getId() {
-		return id;
+	public Long getConfigurationId() {
+		return configurationId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public UserDto getUserDto() {
-		return userDto;
-	}
-
-	public void setUserDto(UserDto userDto) {
-		this.userDto = userDto;
+	public void setConfigurationId(Long configurationId) {
+		this.configurationId = configurationId;
 	}
 
 	public String getFile() {
@@ -31,11 +23,19 @@ public class DashboardConfigurationDto {
 		this.file = file;
 	}
 
-	public CarDto getCarDto() {
-		return carDto;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setCarDto(CarDto carDto) {
-		this.carDto = carDto;
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public Long getCarId() {
+		return carId;
+	}
+
+	public void setCarId(Long carId) {
+		this.carId = carId;
 	}
 }

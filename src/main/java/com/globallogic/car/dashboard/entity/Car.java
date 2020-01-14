@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -23,51 +23,41 @@ public class Car {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "CAR_ID", updatable = false, nullable = false)
-	private Long id;
+	private Long carId;
 	
 	@Column(name = "CAR_MODEL")
-	private String model;
+	private String carModel;
 
 	@Column(name = "CAR_TYPE")
 	@Enumerated(STRING)
-	private CarType type;
+	private CarType carType;
 	
-	@ManyToMany(mappedBy = "cars")
-	private Set<User> users;
-	
-	@OneToMany(mappedBy="car")
+	@OneToMany
+	@JoinColumn(name="CAR_ID")
 	private Set<DashboardConfiguration> dashboardConfigurations;
 
-	public Long getId() {
-		return id;
+	public Long getCarId() {
+		return carId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setCarId(Long carId) {
+		this.carId = carId;
 	}
 
-	public String getModel() {
-		return model;
+	public String getCarModel() {
+		return carModel;
 	}
 
-	public void setModel(String model) {
-		this.model = model;
+	public void setCarModel(String carModel) {
+		this.carModel = carModel;
 	}
 
-	public CarType getType() {
-		return type;
+	public CarType getCarType() {
+		return carType;
 	}
 
-	public void setType(CarType type) {
-		this.type = type;
-	}
-
-	public Set<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(Set<User> users) {
-		this.users = users;
+	public void setCarType(CarType carType) {
+		this.carType = carType;
 	}
 
 	public Set<DashboardConfiguration> getDashboardConfigurations() {

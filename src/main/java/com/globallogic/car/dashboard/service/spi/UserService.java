@@ -2,13 +2,11 @@ package com.globallogic.car.dashboard.service.spi;
 
 import java.util.Set;
 
-import com.globallogic.car.dashboard.entity.User;
+import com.globallogic.car.dashboard.dto.UserDto;
 
 public interface UserService {
 
-	Set<User> getAllUsers();
+	Set<UserDto> getAllUsers();
 	
-	User getUserById(Long userId);
-	
-	void createUser(User user);
+	UserDto getUserById(Long userId);
 }
