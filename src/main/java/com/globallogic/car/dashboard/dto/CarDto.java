@@ -9,7 +9,6 @@ public class CarDto {
 	private Long carId;
 	private String carModel;
 	private CarType carType;
-	private Long userId;
 	private Set<DashboardConfigurationDto> dashboardConfigurations;
 
 	public Long getCarId() {
@@ -34,14 +33,6 @@ public class CarDto {
 
 	public void setCarType(CarType carType) {
 		this.carType = carType;
-	}
-
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
 	}
 
 	public Set<DashboardConfigurationDto> getDashboardConfigurations() {
