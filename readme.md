@@ -8,6 +8,7 @@ All rest calls expects the userId and authorization token in the headers.
 * [GET] /rest/users/info: fetches user information for all users
 * [POST] /rest/configuration: creates configuration for car and user based on body information.
 * [PUT] /rest/configuration: updates configuration for car and user based on body information.
+* [GET] /rest/configuration/{carId}: fetches configuration for user and car.
 
 ### Quick Guide
 SpringBoot application with H2 database in-memory (not durable). The PoC has the following elements:
