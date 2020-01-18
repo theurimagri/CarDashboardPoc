@@ -1,5 +1,7 @@
 package com.globallogic.car.dashboard.service;
 
+import static java.lang.String.format;
+
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.stereotype.Service;
@@ -38,4 +40,10 @@ public class DashboardConfigurationServiceImpl implements DashboardConfiguration
 		dashboardConfigurationRepository.save(dashboardConfiguration);
 	}
 
+	@Override
+	public DashboardConfigurationDto findByUserIdAndCarId(Long userId, Long carId) {
+		return dashboardConfigurationRepository.findDashboardConfigurationByUserIdAndCarId(userId, carId)
+				.map(dashboardConfigurationMapper::dashboardConfigurationToDashboardConfigurationDto)
+				.orElseThrow(() -> new EntityNotFoundException(format("Dashboard configuration not found for userId: %d and carId: %d.", userId, carId)));
+	}
 }

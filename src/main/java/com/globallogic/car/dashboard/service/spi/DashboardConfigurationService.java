@@ -8,4 +8,6 @@ public interface DashboardConfigurationService {
 	DashboardConfiguration createDashboardConfiguration(DashboardConfigurationDto dashboardConfigurationDto);
 	
 	void updateDashboardConfiguration(DashboardConfigurationDto dashboardConfigurationDto);
+	
+	DashboardConfigurationDto findByUserIdAndCarId(Long userId, Long carId);
 }

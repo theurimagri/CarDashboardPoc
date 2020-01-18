@@ -4,6 +4,8 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.springframework.http.HttpStatus.OK;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,5 +36,10 @@ public class DashboardConfigurationController {
 	private ResponseEntity<Long> updateDashboardConfiguration(@RequestHeader("userId") Long userId, @RequestBody DashboardConfigurationDto dashboardConfigurationDto) {
 		dashboardConfigurationService.updateDashboardConfiguration(dashboardConfigurationDto);
 		return new ResponseEntity<>(dashboardConfigurationDto.getConfigurationId(), OK);
+	}
+	
+	@GetMapping(value = "/configuration/{carId}", produces = APPLICATION_JSON)
+	private ResponseEntity<String> getDashboardConfiguration(@RequestHeader("userId") Long userId, @PathVariable("carId") Long carId) {
+		return new ResponseEntity<>(dashboardConfigurationService.findByUserIdAndCarId(userId, carId).getFile(), OK);
 	}
 }
