@@ -25,7 +25,7 @@ public class Car {
 	@Column(name = "CAR_ID", updatable = false, nullable = false)
 	private Long carId;
 	
-	@Column(name = "CAR_MODEL")
+	@Column(name = "CAR_MODEL", unique = true)
 	private String carModel;
 
 	@Column(name = "CAR_TYPE")

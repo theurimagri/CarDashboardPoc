@@ -4,6 +4,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.springframework.http.HttpStatus.OK;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,5 +42,11 @@ public class DashboardConfigurationController {
 	@GetMapping(value = "/configuration/{carId}", produces = APPLICATION_JSON)
 	private ResponseEntity<String> getDashboardConfiguration(@RequestHeader("userId") Long userId, @PathVariable("carId") Long carId) {
 		return new ResponseEntity<>(dashboardConfigurationService.findByUserIdAndCarId(userId, carId).getFile(), OK);
+	}
+	
+	@DeleteMapping(value = "/configuration/{configurationId}", produces = APPLICATION_JSON)
+	private ResponseEntity<String> deleteDashboardConfiguration(@PathVariable("configurationId") Long configurationId) {
+		dashboardConfigurationService.deleteDashboardConfiguration(configurationId);
+		return new ResponseEntity<>(OK);
 	}
 }

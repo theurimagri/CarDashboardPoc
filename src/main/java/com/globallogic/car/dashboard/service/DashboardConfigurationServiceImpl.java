@@ -35,7 +35,7 @@ public class DashboardConfigurationServiceImpl implements DashboardConfiguration
 	@Transactional
 	public void updateDashboardConfiguration(DashboardConfigurationDto dashboardConfigurationDto) {
 		DashboardConfiguration dashboardConfiguration = dashboardConfigurationRepository.findById(dashboardConfigurationDto.getConfigurationId())
-				.orElseThrow(() -> new EntityNotFoundException(dashboardConfigurationDto.getConfigurationId().toString()));
+				.orElseThrow(() -> new EntityNotFoundException("Dashboard configuration not found."));
 		dashboardConfiguration.setFile(dashboardConfigurationDto.getFile());
 		dashboardConfigurationRepository.save(dashboardConfiguration);
 	}
@@ -45,5 +45,12 @@ public class DashboardConfigurationServiceImpl implements DashboardConfiguration
 		return dashboardConfigurationRepository.findDashboardConfigurationByUserIdAndCarId(userId, carId)
 				.map(dashboardConfigurationMapper::dashboardConfigurationToDashboardConfigurationDto)
 				.orElseThrow(() -> new EntityNotFoundException(format("Dashboard configuration not found for userId: %d and carId: %d.", userId, carId)));
+	}
+
+	@Override
+	public void deleteDashboardConfiguration(Long configurationId) {
+		dashboardConfigurationRepository
+			.findById(configurationId)
+			.ifPresent(config -> dashboardConfigurationRepository.deleteById(config.getConfigurationId()));
 	}
 }
