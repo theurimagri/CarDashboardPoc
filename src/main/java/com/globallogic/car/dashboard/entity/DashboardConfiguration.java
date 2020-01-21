@@ -8,9 +8,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "DASHBOARD_CONFIG")
+@Table(
+		name = "DASHBOARD_CONFIG",
+		uniqueConstraints = @UniqueConstraint(columnNames = {"USER_ID", "CAR_ID"})
+)
 public class DashboardConfiguration {
 	
 	@Id

@@ -10,4 +10,6 @@ public interface DashboardConfigurationService {
 	void updateDashboardConfiguration(DashboardConfigurationDto dashboardConfigurationDto);
 	
 	DashboardConfigurationDto findByUserIdAndCarId(Long userId, Long carId);
+	
+	void deleteDashboardConfiguration(Long configurationId);
 }

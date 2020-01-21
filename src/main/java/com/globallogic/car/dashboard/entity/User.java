@@ -23,7 +23,7 @@ public class User {
 	@Column(name = "USER_ID", updatable = false, nullable = false)
 	private Long userId;
 	
-	@Column(name = "USER_NAME", nullable = false)
+	@Column(name = "USER_NAME", nullable = false, unique = true)
 	private String userName;
 	
 	@ManyToMany(cascade = { CascadeType.ALL })
