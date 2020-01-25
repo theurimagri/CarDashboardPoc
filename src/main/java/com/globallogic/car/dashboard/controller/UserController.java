@@ -7,6 +7,8 @@ import java.util.Set;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +31,11 @@ public class UserController {
 		this.userService = userService;
 	}
 
+	@PostMapping(value = "/user", produces = APPLICATION_JSON, consumes = APPLICATION_JSON)
+	private ResponseEntity<UserDto> getUser(@RequestBody final UserDto userDto) {
+		return new ResponseEntity<>(userService.saveUser(userDto), OK);
+	}
+	
 	@GetMapping(value = "/user", produces = APPLICATION_JSON)
 	private ResponseEntity<UserDto> getUser(@RequestHeader("userId") Long userId) {
 		return new ResponseEntity<>(userService.getUserById(userId), OK);

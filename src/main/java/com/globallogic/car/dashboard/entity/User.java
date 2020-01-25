@@ -1,6 +1,6 @@
 package com.globallogic.car.dashboard.entity;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import static javax.persistence.GenerationType.SEQUENCE;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import javax.persistence.Table;
 public class User {
 	
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
+	@GeneratedValue(strategy = SEQUENCE)
 	@Column(name = "USER_ID", updatable = false, nullable = false)
 	private Long userId;
 	

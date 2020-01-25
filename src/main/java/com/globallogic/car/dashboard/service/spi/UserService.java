@@ -6,6 +6,8 @@ import com.globallogic.car.dashboard.dto.UserDto;
 
 public interface UserService {
 
+	UserDto saveUser(UserDto userDto);
+	
 	Set<UserDto> getAllUsers();
 	
 	UserDto getUserById(Long userId);
