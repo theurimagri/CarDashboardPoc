@@ -14,24 +14,28 @@ import org.springframework.web.bind.annotation.RestController;
 import com.globallogic.car.dashboard.dto.UserDto;
 import com.globallogic.car.dashboard.service.spi.UserService;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 @RestController
 @RequestMapping("/rest")
+@OpenAPIDefinition(security = { @SecurityRequirement(name = "bearerScheme") })
 public class UserController {
 
 	private UserService userService;
-	
+
 	public UserController(UserService userService) {
 		super();
 		this.userService = userService;
 	}
 
 	@GetMapping(value = "/user", produces = APPLICATION_JSON)
-    private ResponseEntity<UserDto> getUser(@RequestHeader("userId") Long userId) {
-        return new ResponseEntity<>(userService.getUserById(userId), OK);
-    }
-	
+	private ResponseEntity<UserDto> getUser(@RequestHeader("userId") Long userId) {
+		return new ResponseEntity<>(userService.getUserById(userId), OK);
+	}
+
 	@GetMapping(value = "/users/info", produces = APPLICATION_JSON)
-    private ResponseEntity<Set<UserDto>> getUsersInforation() {
-        return new ResponseEntity<>(userService.getAllUsers(), OK);
-    }
+	private ResponseEntity<Set<UserDto>> getUsersInforation() {
+		return new ResponseEntity<>(userService.getAllUsers(), OK);
+	}
 }

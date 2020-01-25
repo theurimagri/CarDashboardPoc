@@ -1,6 +1,6 @@
 # Car Dashboard Configuration
 
-### REST API
+## REST API
 All rest calls expects the userId and authorization token in the headers.
 
 * [GET] /token: returns token for authentication by userId (hardcoded)
@@ -11,7 +11,11 @@ All rest calls expects the userId and authorization token in the headers.
 * [GET] /rest/configuration/{carId}: fetches configuration for user and car.
 * [DEL] /rest/configuration/{configurationId}: deletes a configuration by id.
 
-### Quick Guide
+### OpenApi UI (Swagger-UI)
+
+You can access the OpenApi(SwaggerUI) dash-board via: **http://localhost:<APP_PORT>/swagger-ui.html**
+
+## Quick Guide
 SpringBoot application with H2 database in-memory (not durable). The PoC has the following elements:
 
 * Spring Security using token

@@ -17,8 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.globallogic.car.dashboard.dto.DashboardConfigurationDto;
 import com.globallogic.car.dashboard.service.spi.DashboardConfigurationService;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 @RestController
 @RequestMapping("/rest")
+@OpenAPIDefinition(security = { @SecurityRequirement(name = "bearerScheme") })
 public class DashboardConfigurationController {
 	
 	private DashboardConfigurationService dashboardConfigurationService;
