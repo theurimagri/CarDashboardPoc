@@ -1,5 +1,6 @@
 package com.globallogic.car.dashboard.entity;
 
+import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 import java.util.List;
@@ -12,14 +13,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "USER")
+@SequenceGenerator(initialValue = 50, name = "USER_SEQ", sequenceName = "USER_SEQ")
 public class User {
 	
 	@Id
-	@GeneratedValue(strategy = SEQUENCE)
+	@GeneratedValue(strategy = SEQUENCE, generator = "USER_SEQ")
 	@Column(name = "USER_ID", updatable = false, nullable = false)
 	private Long userId;
 	
@@ -33,6 +37,9 @@ public class User {
         inverseJoinColumns = { @JoinColumn(name = "CAR_ID") }
     )
 	private List<Car> cars;
+	
+	@OneToMany(fetch = EAGER, mappedBy = "user")
+	private List<Layout> layouts;
 	
 	public Long getUserId() {
 		return userId;
@@ -57,5 +64,12 @@ public class User {
 	public void setCars(List<Car> cars) {
 		this.cars = cars;
 	}
-	
+
+	public List<Layout> getLayouts() {
+		return layouts;
+	}
+
+	public void setLayouts(List<Layout> layouts) {
+		this.layouts = layouts;
+	}
 }
