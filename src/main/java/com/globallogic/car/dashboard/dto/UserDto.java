@@ -7,7 +7,8 @@ public class UserDto {
 	private Long userId;
 	private String userName;
 	private List<CarDto> cars;
-	
+	private List<LayoutDto> layouts;
+
 	public Long getUserId() {
 		return userId;
 	}
@@ -31,5 +32,12 @@ public class UserDto {
 	public void setCars(List<CarDto> carsDto) {
 		this.cars = carsDto;
 	}
-	
+
+	public List<LayoutDto> getLayouts() {
+		return layouts;
+	}
+
+	public void setLayouts(List<LayoutDto> layouts) {
+		this.layouts = layouts;
+	}
 }
