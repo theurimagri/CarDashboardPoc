@@ -1,7 +1,7 @@
 package com.globallogic.car.dashboard.entity;
 
 import static javax.persistence.EnumType.STRING;
-import static javax.persistence.GenerationType.IDENTITY;
+import static javax.persistence.GenerationType.SEQUENCE;
 
 import java.util.Set;
 
@@ -12,16 +12,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.globallogic.car.dashboard.enums.CarType;
 
 @Entity
 @Table(name = "CAR")
+@SequenceGenerator(name = "CAR_SEQ", sequenceName = "CAR_SEQ", allocationSize = 1)
 public class Car {
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
+	@GeneratedValue(strategy = SEQUENCE, generator = "CAR_SEQ")
 	@Column(name = "CAR_ID", updatable = false, nullable = false)
 	private Long carId;
 	
