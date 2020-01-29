@@ -10,7 +10,7 @@ public interface LayoutService {
 
 	void updateLayout(LayoutDto layoutDto);
 
-	List<LayoutDto> findByUserId(Long userId);
+	List<LayoutDto> findAll();
 
-	void deleteLayout(Long layoutId, Long userId);
+	void deleteLayout(Long layoutId);
 }

@@ -4,6 +4,7 @@ import static java.util.Optional.of;
 import static java.util.stream.Collectors.toList;
 
 import java.util.List;
+import java.util.stream.StreamSupport;
 
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceException;
@@ -49,16 +50,15 @@ public class LayoutServiceImpl implements LayoutService {
 	}
 
 	@Override
-	public List<LayoutDto> findByUserId(Long userId) {
-		return layoutRepository.findByUserId(userId)
-				.stream()
+	public List<LayoutDto> findAll() {
+		return StreamSupport.stream(layoutRepository.findAll().spliterator(), false)
 				.map(layoutMapper::layoutToLayoutDto)
 				.collect(toList());
 	}
 
 	@Override
-	public void deleteLayout(Long layoutId, Long userId) {
-		final Layout layout = layoutRepository.findByLayoutIdAndUserId(layoutId, userId)
+	public void deleteLayout(Long layoutId) {
+		final Layout layout = layoutRepository.findById(layoutId)
 				.orElseThrow(EntityNotFoundException::new);
 		
 		layoutRepository.delete(layout);

@@ -6,8 +6,6 @@ public class LayoutDto {
 
 	private String layoutName;
 
-	private Long userId;
-
 	public Long getLayoutId() {
 		return layoutId;
 	}
@@ -22,13 +20,5 @@ public class LayoutDto {
 
 	public void setLayoutName(String layoutName) {
 		this.layoutName = layoutName;
-	}
-
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
 	}
 }

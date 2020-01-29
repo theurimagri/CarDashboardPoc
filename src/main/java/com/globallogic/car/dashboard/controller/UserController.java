@@ -32,7 +32,7 @@ public class UserController {
 	}
 
 	@PostMapping(value = "/user", produces = APPLICATION_JSON, consumes = APPLICATION_JSON)
-	private ResponseEntity<UserDto> getUser(@RequestBody final UserDto userDto) {
+	private ResponseEntity<UserDto> saveUser(@RequestBody final UserDto userDto) {
 		return new ResponseEntity<>(userService.saveUser(userDto), OK);
 	}
 	

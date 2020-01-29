@@ -1,20 +1,17 @@
 package com.globallogic.car.dashboard.entity;
 
-import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "LAYOUT")
-@SequenceGenerator(initialValue = 50, name = "LAYOUT_SEQ", sequenceName = "LAYOUT_SEQ")
+@SequenceGenerator(name = "LAYOUT_SEQ", sequenceName = "LAYOUT_SEQ", allocationSize = 1)
 public class Layout {
 
 	@Id
@@ -24,13 +21,6 @@ public class Layout {
 
 	@Column(name = "LAYOUT_NAME", nullable = false, unique = true)
 	private String layoutName;
-
-	@Column(name = "USER_ID", nullable = false)
-	private Long userId;
-	
-	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "USER_ID", nullable = false, insertable = false, updatable = false)
-	private User user;
 
 	public Long getLayoutId() {
 		return layoutId;
@@ -46,21 +36,5 @@ public class Layout {
 
 	public void setLayoutName(String layoutName) {
 		this.layoutName = layoutName;
-	}
-
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 }
