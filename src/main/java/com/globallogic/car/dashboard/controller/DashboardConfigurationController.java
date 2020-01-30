@@ -3,6 +3,8 @@ package com.globallogic.car.dashboard.controller;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.springframework.http.HttpStatus.OK;
 
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,7 +47,10 @@ public class DashboardConfigurationController {
 	
 	@GetMapping(value = "/configuration/{carId}", produces = APPLICATION_JSON)
 	private ResponseEntity<String> getDashboardConfiguration(@RequestHeader("userId") Long userId, @PathVariable("carId") Long carId) {
-		return new ResponseEntity<>(dashboardConfigurationService.findByUserIdAndCarId(userId, carId).getFile(), OK);
+		final DashboardConfigurationDto dashboardConfigurationDto = dashboardConfigurationService.findByUserIdAndCarId(userId, carId);
+		return ResponseEntity.ok()
+				.header("Last-Modified", dashboardConfigurationDto.getUpdateAt().format(DateTimeFormatter.ofPattern("EEE, DD MMM YYY HH:mm:ss ZZZ")))
+				.body(dashboardConfigurationDto.getFile());
 	}
 	
 	@DeleteMapping(value = "/configuration/{configurationId}", produces = APPLICATION_JSON)

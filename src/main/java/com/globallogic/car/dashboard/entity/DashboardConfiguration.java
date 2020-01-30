@@ -2,6 +2,8 @@ package com.globallogic.car.dashboard.entity;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
+import java.time.ZonedDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,9 @@ import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "DASHBOARD_CONFIG", uniqueConstraints = @UniqueConstraint(columnNames = { "USER_ID", "CAR_ID" }))
@@ -30,6 +35,14 @@ public class DashboardConfiguration {
 
 	@Column(name = "CAR_ID", nullable = false)
 	private Long carId;
+
+	@Column(name = "CREATE_AT", nullable = false, columnDefinition = "TIMESTAMP")
+	@CreationTimestamp
+	private ZonedDateTime createAt;
+
+	@Column(name = "UPDATE_AT", nullable = false, columnDefinition = "TIMESTAMP")
+	@UpdateTimestamp
+	private ZonedDateTime updateAt;
 
 	public Long getConfigurationId() {
 		return configurationId;
@@ -61,5 +74,21 @@ public class DashboardConfiguration {
 
 	public void setCarId(Long carId) {
 		this.carId = carId;
+	}
+
+	public ZonedDateTime getCreateAt() {
+		return createAt;
+	}
+
+	public void setCreateAt(ZonedDateTime createAt) {
+		this.createAt = createAt;
+	}
+
+	public ZonedDateTime getUpdateAt() {
+		return updateAt;
+	}
+
+	public void setUpdateAt(ZonedDateTime updateAt) {
+		this.updateAt = updateAt;
 	}
 }
