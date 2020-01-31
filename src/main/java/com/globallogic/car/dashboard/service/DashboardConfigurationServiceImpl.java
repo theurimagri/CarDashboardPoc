@@ -1,6 +1,7 @@
 package com.globallogic.car.dashboard.service;
 
 import static java.lang.String.format;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -9,25 +10,29 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.globallogic.car.dashboard.dto.DashboardConfigurationDto;
 import com.globallogic.car.dashboard.entity.DashboardConfiguration;
+import com.globallogic.car.dashboard.entity.User;
 import com.globallogic.car.dashboard.mapper.DashboardConfigurationMapper;
 import com.globallogic.car.dashboard.repository.DashboardConfigurationRepository;
+import com.globallogic.car.dashboard.repository.UserRepository;
 import com.globallogic.car.dashboard.service.spi.DashboardConfigurationService;
 
 @Service
 public class DashboardConfigurationServiceImpl implements DashboardConfigurationService {
 
 	private final DashboardConfigurationRepository dashboardConfigurationRepository;
+	private final UserRepository userRepository;
 	private final DashboardConfigurationMapper dashboardConfigurationMapper;
 	
-	public DashboardConfigurationServiceImpl(DashboardConfigurationRepository dashboardConfigurationRepository, DashboardConfigurationMapper dashboardConfigurationMapper) {
-		super();
+	public DashboardConfigurationServiceImpl(DashboardConfigurationRepository dashboardConfigurationRepository, UserRepository userRepository, DashboardConfigurationMapper dashboardConfigurationMapper) {
 		this.dashboardConfigurationRepository = dashboardConfigurationRepository;
 		this.dashboardConfigurationMapper = dashboardConfigurationMapper;
+		this.userRepository = userRepository;
 	}
 	
 	@Override
 	@Transactional
-	public DashboardConfiguration createDashboardConfiguration(DashboardConfigurationDto dashboardConfigurationDto) {
+	public DashboardConfiguration createDashboardConfiguration(String userName, DashboardConfigurationDto dashboardConfigurationDto) {
+		dashboardConfigurationDto.setUserId(getUserId(dashboardConfigurationDto.getUserId(), userName));
 		return dashboardConfigurationRepository.save(dashboardConfigurationMapper.dashboardConfigurationDtoToDashboardConfiguration(dashboardConfigurationDto));
 	}
 
@@ -41,8 +46,8 @@ public class DashboardConfigurationServiceImpl implements DashboardConfiguration
 	}
 
 	@Override
-	public DashboardConfigurationDto findByUserIdAndCarId(Long userId, Long carId) {
-		return dashboardConfigurationRepository.findDashboardConfigurationByUserIdAndCarId(userId, carId)
+	public DashboardConfigurationDto findByUserAndCarId(final Long userId, final String userName, final Long carId) {
+		return dashboardConfigurationRepository.findDashboardConfigurationByUserIdAndCarId(getUserId(userId, userName), carId)
 				.map(dashboardConfigurationMapper::dashboardConfigurationToDashboardConfigurationDto)
 				.orElseThrow(() -> new EntityNotFoundException(format("Dashboard configuration not found for userId: %d and carId: %d.", userId, carId)));
 	}
@@ -52,5 +57,14 @@ public class DashboardConfigurationServiceImpl implements DashboardConfiguration
 		dashboardConfigurationRepository
 			.findById(configurationId)
 			.ifPresent(config -> dashboardConfigurationRepository.deleteById(config.getConfigurationId()));
+	}
+	
+	private Long getUserId(final Long userId, final String userName) {
+		if (isNotBlank(userName) && userId == null) {
+			return userRepository.findByUserName(userName)
+					.map(User::getUserId)
+					.orElseThrow(() -> new EntityNotFoundException(format("User [%s] not found.", userName)));
+		}
+		return userId;
 	}
 }
