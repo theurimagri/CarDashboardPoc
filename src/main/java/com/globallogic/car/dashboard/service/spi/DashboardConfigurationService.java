@@ -5,11 +5,11 @@ import com.globallogic.car.dashboard.entity.DashboardConfiguration;
 
 public interface DashboardConfigurationService {
 
-	DashboardConfiguration createDashboardConfiguration(DashboardConfigurationDto dashboardConfigurationDto);
+	DashboardConfiguration createDashboardConfiguration(String userName, DashboardConfigurationDto dashboardConfigurationDto);
 	
 	void updateDashboardConfiguration(DashboardConfigurationDto dashboardConfigurationDto);
 	
-	DashboardConfigurationDto findByUserIdAndCarId(Long userId, Long carId);
+	DashboardConfigurationDto findByUserAndCarId(Long userId, String userName, Long carId);
 	
 	void deleteDashboardConfiguration(Long configurationId);
 }

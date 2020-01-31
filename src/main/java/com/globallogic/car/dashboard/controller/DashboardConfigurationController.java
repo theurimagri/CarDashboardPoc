@@ -26,33 +26,42 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 @RequestMapping("/rest")
 @OpenAPIDefinition(security = { @SecurityRequirement(name = "bearerScheme") })
 public class DashboardConfigurationController {
-	
+
 	private DashboardConfigurationService dashboardConfigurationService;
-	
+
 	public DashboardConfigurationController(DashboardConfigurationService dashboardConfigurationService) {
 		super();
 		this.dashboardConfigurationService = dashboardConfigurationService;
 	}
 
 	@PostMapping(value = "/configuration", consumes = APPLICATION_JSON, produces = APPLICATION_JSON)
-	private ResponseEntity<Long> createDashboardConfiguration(@RequestHeader("userId") Long userId, @RequestBody DashboardConfigurationDto dashboardConfigurationDto) {
-		return new ResponseEntity<>(dashboardConfigurationService.createDashboardConfiguration(dashboardConfigurationDto).getConfigurationId(), OK);
+	private ResponseEntity<Long> createDashboardConfiguration(
+			@RequestHeader(value = "userId", required = false) Long userId,
+			@RequestHeader(value = "userName", required = false) String userName,
+			@RequestBody DashboardConfigurationDto dashboardConfigurationDto) {
+		return new ResponseEntity<>(dashboardConfigurationService
+				.createDashboardConfiguration(userName, dashboardConfigurationDto).getConfigurationId(), OK);
 	}
-	
+
 	@PutMapping(value = "/configuration", consumes = APPLICATION_JSON, produces = APPLICATION_JSON)
-	private ResponseEntity<Long> updateDashboardConfiguration(@RequestHeader("userId") Long userId, @RequestBody DashboardConfigurationDto dashboardConfigurationDto) {
+	private ResponseEntity<Long> updateDashboardConfiguration(@RequestHeader("userId") Long userId,
+			@RequestBody DashboardConfigurationDto dashboardConfigurationDto) {
 		dashboardConfigurationService.updateDashboardConfiguration(dashboardConfigurationDto);
 		return new ResponseEntity<>(dashboardConfigurationDto.getConfigurationId(), OK);
 	}
-	
+
 	@GetMapping(value = "/configuration/{carId}", produces = APPLICATION_JSON)
-	private ResponseEntity<String> getDashboardConfiguration(@RequestHeader("userId") Long userId, @PathVariable("carId") Long carId) {
-		final DashboardConfigurationDto dashboardConfigurationDto = dashboardConfigurationService.findByUserIdAndCarId(userId, carId);
+	private ResponseEntity<String> getDashboardConfiguration(
+			@RequestHeader(value = "userId", required = false) Long userId,
+			@RequestHeader(value = "userName", required = false) String userName, 
+			@PathVariable("carId") Long carId) {
+		
+		final DashboardConfigurationDto dashboardConfigurationDto = dashboardConfigurationService.findByUserAndCarId(userId, userName, carId);
 		return ResponseEntity.ok()
-				.header("Last-Modified", dashboardConfigurationDto.getUpdateAt().format(DateTimeFormatter.ofPattern("EEE, DD MMM YYY HH:mm:ss ZZZ")))
+				.header("Last-Modified",dashboardConfigurationDto.getUpdateAt().format(DateTimeFormatter.ofPattern("EEE, DD MMM YYY HH:mm:ss ZZZ")))
 				.body(dashboardConfigurationDto.getFile());
 	}
-	
+
 	@DeleteMapping(value = "/configuration/{configurationId}", produces = APPLICATION_JSON)
 	private ResponseEntity<String> deleteDashboardConfiguration(@PathVariable("configurationId") Long configurationId) {
 		dashboardConfigurationService.deleteDashboardConfiguration(configurationId);
