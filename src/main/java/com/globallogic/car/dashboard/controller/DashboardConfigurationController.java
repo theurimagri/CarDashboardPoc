@@ -1,9 +1,8 @@
 package com.globallogic.car.dashboard.controller;
 
+import static java.time.format.DateTimeFormatter.RFC_1123_DATE_TIME;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.springframework.http.HttpStatus.OK;
-
-import java.time.format.DateTimeFormatter;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -58,7 +57,7 @@ public class DashboardConfigurationController {
 		
 		final DashboardConfigurationDto dashboardConfigurationDto = dashboardConfigurationService.findByUserAndCarId(userId, userName, carId);
 		return ResponseEntity.ok()
-				.header("Last-Modified",dashboardConfigurationDto.getUpdateAt().format(DateTimeFormatter.ofPattern("EEE, DD MMM YYY HH:mm:ss ZZZ")))
+				.header("Last-Modified",dashboardConfigurationDto.getUpdateAt().format(RFC_1123_DATE_TIME))
 				.body(dashboardConfigurationDto.getFile());
 	}
 
