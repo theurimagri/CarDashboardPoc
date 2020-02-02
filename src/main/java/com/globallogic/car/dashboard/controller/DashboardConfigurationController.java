@@ -43,8 +43,7 @@ public class DashboardConfigurationController {
 	}
 
 	@PutMapping(value = "/configuration", consumes = APPLICATION_JSON, produces = APPLICATION_JSON)
-	private ResponseEntity<Long> updateDashboardConfiguration(@RequestHeader("userId") Long userId,
-			@RequestBody DashboardConfigurationDto dashboardConfigurationDto) {
+	private ResponseEntity<Long> updateDashboardConfiguration(@RequestBody DashboardConfigurationDto dashboardConfigurationDto) {
 		dashboardConfigurationService.updateDashboardConfiguration(dashboardConfigurationDto);
 		return new ResponseEntity<>(dashboardConfigurationDto.getConfigurationId(), OK);
 	}
