@@ -47,6 +47,16 @@ public class DashboardConfigurationController {
 		dashboardConfigurationService.updateDashboardConfiguration(dashboardConfigurationDto);
 		return new ResponseEntity<>(dashboardConfigurationDto.getConfigurationId(), OK);
 	}
+	
+	@PutMapping(value = "/configuration/car/{carId}", consumes = APPLICATION_JSON, produces = APPLICATION_JSON)
+	private ResponseEntity<Long> updateDashboardConfiguration(
+			@RequestHeader(value = "userId", required = false) Long userId,
+			@RequestHeader(value = "userName", required = false) String userName, 
+			@PathVariable("carId") Long carId,
+			@RequestBody DashboardConfigurationDto dashboardConfigurationDto) {
+		dashboardConfigurationService.updateDashboardConfigurationByUserAndCarId(userId, userName, carId, dashboardConfigurationDto);
+		return new ResponseEntity<>(dashboardConfigurationDto.getConfigurationId(), OK);
+	}
 
 	@GetMapping(value = "/configuration/{carId}", produces = APPLICATION_JSON)
 	private ResponseEntity<String> getDashboardConfiguration(

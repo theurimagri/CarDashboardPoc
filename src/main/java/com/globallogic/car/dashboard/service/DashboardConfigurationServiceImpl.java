@@ -46,6 +46,17 @@ public class DashboardConfigurationServiceImpl implements DashboardConfiguration
 	}
 
 	@Override
+	public void updateDashboardConfigurationByUserAndCarId(final Long userId, final String userName, 
+			final Long carId,final DashboardConfigurationDto dashboardConfigurationDto) {
+		
+		dashboardConfigurationRepository.findDashboardConfigurationByUserIdAndCarId(getUserId(userId, userName), carId)
+			.map(DashboardConfiguration::getConfigurationId)
+			.ifPresent(dashboardConfigurationDto::setConfigurationId);
+		
+		updateDashboardConfiguration(dashboardConfigurationDto);
+	}
+
+	@Override
 	public DashboardConfigurationDto findByUserAndCarId(final Long userId, final String userName, final Long carId) {
 		return dashboardConfigurationRepository.findDashboardConfigurationByUserIdAndCarId(getUserId(userId, userName), carId)
 				.map(dashboardConfigurationMapper::dashboardConfigurationToDashboardConfigurationDto)

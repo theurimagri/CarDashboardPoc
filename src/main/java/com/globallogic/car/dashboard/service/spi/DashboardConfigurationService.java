@@ -9,6 +9,8 @@ public interface DashboardConfigurationService {
 	
 	void updateDashboardConfiguration(DashboardConfigurationDto dashboardConfigurationDto);
 	
+	void updateDashboardConfigurationByUserAndCarId(Long userId, String userName, Long carId, DashboardConfigurationDto dashboardConfigurationDto);
+	
 	DashboardConfigurationDto findByUserAndCarId(Long userId, String userName, Long carId);
 	
 	void deleteDashboardConfiguration(Long configurationId);
