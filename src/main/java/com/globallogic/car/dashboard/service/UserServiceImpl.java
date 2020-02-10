@@ -63,6 +63,14 @@ public class UserServiceImpl implements UserService {
 				.orElseThrow(() -> new EntityNotFoundException(userId.toString()));
 	}
 	
+	@Override
+	public void deleteUser(Long userId) {
+		final User user = userRepository.findById(userId)
+				.orElseThrow(() -> new EntityNotFoundException(userId.toString()));
+		
+		userRepository.delete(user);
+	}
+
 	private List<Car> getCars(final User user) {
 		if (isNotEmpty(user.getCars())) {
 			return user.getCars()

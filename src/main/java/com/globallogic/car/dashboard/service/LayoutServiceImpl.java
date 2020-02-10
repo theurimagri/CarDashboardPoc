@@ -57,6 +57,20 @@ public class LayoutServiceImpl implements LayoutService {
 	}
 
 	@Override
+	public LayoutDto findById(Long layoutId) {
+		return layoutRepository.findById(layoutId)
+				.map(layoutMapper::layoutToLayoutDto)
+				.orElseThrow(EntityNotFoundException::new);
+	}
+
+	@Override
+	public LayoutDto findByName(String layoutName) {
+		return layoutRepository.findByLayoutName(layoutName)
+				.map(layoutMapper::layoutToLayoutDto)
+				.orElseThrow(EntityNotFoundException::new);
+	}
+
+	@Override
 	public void deleteLayout(Long layoutId) {
 		final Layout layout = layoutRepository.findById(layoutId)
 				.orElseThrow(EntityNotFoundException::new);

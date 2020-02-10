@@ -1,5 +1,6 @@
 package com.globallogic.car.dashboard.controller;
 
+import static com.globallogic.car.dashboard.controller.CarDashboardEndpointResources.REST_API_PREFIX;
 import static java.time.format.DateTimeFormatter.RFC_1123_DATE_TIME;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.springframework.http.HttpStatus.OK;
@@ -22,7 +23,7 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
-@RequestMapping("/rest")
+@RequestMapping(REST_API_PREFIX)
 @OpenAPIDefinition(security = { @SecurityRequirement(name = "bearerScheme") })
 public class DashboardConfigurationController {
 
