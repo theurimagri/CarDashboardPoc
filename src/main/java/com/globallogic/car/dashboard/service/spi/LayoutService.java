@@ -12,5 +12,9 @@ public interface LayoutService {
 
 	List<LayoutDto> findAll();
 
+	LayoutDto findById(Long layoutId);
+
+	LayoutDto findByName(String layoutName);
+
 	void deleteLayout(Long layoutId);
 }

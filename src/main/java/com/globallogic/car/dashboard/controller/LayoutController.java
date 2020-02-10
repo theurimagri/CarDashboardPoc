@@ -1,5 +1,6 @@
 package com.globallogic.car.dashboard.controller;
 
+import static com.globallogic.car.dashboard.controller.CarDashboardEndpointResources.REST_API_PREFIX;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.springframework.http.HttpStatus.OK;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.globallogic.car.dashboard.dto.LayoutDto;
@@ -22,7 +24,7 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
-@RequestMapping("/rest")
+@RequestMapping(REST_API_PREFIX)
 @OpenAPIDefinition(security = { @SecurityRequirement(name = "bearerScheme") })
 public class LayoutController {
 
@@ -43,9 +45,19 @@ public class LayoutController {
 		return new ResponseEntity<>(OK);
 	}
 
-	@GetMapping(value = "/layout", produces = APPLICATION_JSON)
-	private ResponseEntity<List<LayoutDto>> getUser() {
+	@GetMapping(value = "/layouts", produces = APPLICATION_JSON)
+	private ResponseEntity<List<LayoutDto>> getAllLayouts() {
 		return new ResponseEntity<>(layoutService.findAll(), OK);
+	}
+
+	@GetMapping(value = "/layout", produces = APPLICATION_JSON)
+	private ResponseEntity<LayoutDto> getLayoutByFilter(@RequestParam("layoutName") final String layoutName) {
+		return new ResponseEntity<>(layoutService.findByName(layoutName), OK);
+	}
+
+	@GetMapping(value = "/layout/{layoutId}", produces = APPLICATION_JSON)
+	private ResponseEntity<LayoutDto> getLayoutByFilter(@PathVariable("layoutId") final Long layoutId) {
+		return new ResponseEntity<>(layoutService.findById(layoutId), OK);
 	}
 
 	@DeleteMapping(value = "/layout/{layoutId}", produces = APPLICATION_JSON)

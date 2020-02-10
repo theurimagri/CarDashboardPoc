@@ -11,4 +11,6 @@ public interface UserService {
 	Set<UserDto> getAllUsers();
 	
 	UserDto getUserById(Long userId);
+	
+	void deleteUser(Long userId);
 }

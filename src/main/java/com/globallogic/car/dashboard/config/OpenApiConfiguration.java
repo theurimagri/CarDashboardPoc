@@ -23,13 +23,13 @@ public class OpenApiConfiguration {
 
 	@Bean
 	public GroupedOpenApi carDashboardApi() {
-		String[] paths = { "/rest/**" };
+		String[] paths = { "/api/*/rest/**" };
 		return GroupedOpenApi.builder().setGroup("dashboard").pathsToMatch(paths).build();
 	}
 
 	@Bean
 	public GroupedOpenApi modelApi() {
-		String[] paths = { "/stream/**" };
+		String[] paths = { "/api/*/stream/**" };
 		String[] packagedToMatch = { "com.globallogic.car.dashboard.dto" };
 		return GroupedOpenApi.builder().setGroup("stream").pathsToMatch(paths).packagesToScan(packagedToMatch).build();
 	}

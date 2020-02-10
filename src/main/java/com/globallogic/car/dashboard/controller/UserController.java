@@ -1,11 +1,13 @@
 package com.globallogic.car.dashboard.controller;
 
+import static com.globallogic.car.dashboard.controller.CarDashboardEndpointResources.REST_API_PREFIX;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.springframework.http.HttpStatus.OK;
 
 import java.util.Set;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +22,7 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
-@RequestMapping("/rest")
+@RequestMapping(REST_API_PREFIX)
 @OpenAPIDefinition(security = { @SecurityRequirement(name = "bearerScheme") })
 public class UserController {
 
@@ -44,5 +46,11 @@ public class UserController {
 	@GetMapping(value = "/users/info", produces = APPLICATION_JSON)
 	private ResponseEntity<Set<UserDto>> getUsersInforation() {
 		return new ResponseEntity<>(userService.getAllUsers(), OK);
+	}
+	
+	@DeleteMapping(value = "/user", produces = APPLICATION_JSON)
+	private ResponseEntity<UserDto> deleteUser(@RequestHeader("userId") Long userId) {
+		userService.deleteUser(userId);
+		return new ResponseEntity<>(OK);
 	}
 }
