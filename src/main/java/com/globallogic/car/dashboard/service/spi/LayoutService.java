@@ -15,6 +15,8 @@ public interface LayoutService {
 	List<LayoutDto> findByCarId(Long carId);
 
 	LayoutDto findById(Long layoutId);
+	
+	byte[] getLayoutTemplatePreview(Long layoutId);
 
 	LayoutDto findByName(String layoutName);
 

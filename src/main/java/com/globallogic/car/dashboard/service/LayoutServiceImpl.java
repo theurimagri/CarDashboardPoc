@@ -23,7 +23,8 @@ public class LayoutServiceImpl implements LayoutService {
 	private final LayoutMapper layoutMapper;
 	private final LayoutRepository layoutRepository;
 
-	public LayoutServiceImpl(LayoutMapper layoutMapper, LayoutRepository layoutRepository) {
+	public LayoutServiceImpl(final LayoutMapper layoutMapper, 
+						     final LayoutRepository layoutRepository) {
 		this.layoutMapper = layoutMapper;
 		this.layoutRepository = layoutRepository;
 	}
@@ -40,25 +41,25 @@ public class LayoutServiceImpl implements LayoutService {
 	@Override
 	public void updateLayout(LayoutDto layoutDto) {
 		layoutRepository.findById(layoutDto.getLayoutId())
-			.orElseThrow(() -> new EntityNotFoundException(layoutDto.getLayoutId().toString()));
-		
+				.orElseThrow(() -> new EntityNotFoundException(layoutDto.getLayoutId().toString()));
+
 		of(layoutDto)
-			.map(layoutMapper::layoutDtoToLayout)
-			.map(layoutRepository::save)
-			.map(layoutMapper::layoutToLayoutDto)
-			.orElseThrow(PersistenceException::new);;
+				.map(layoutMapper::layoutDtoToLayout)
+				.map(layoutRepository::save)
+				.map(layoutMapper::layoutToLayoutDto)
+				.orElseThrow(PersistenceException::new);
 	}
 
 	@Override
 	public List<LayoutDto> findAll() {
 		return StreamSupport.stream(layoutRepository.findAll().spliterator(), false)
-				.map(layoutMapper::layoutToLayoutDto)
-				.collect(toList());
+				.map(layoutMapper::layoutToLayoutDto).collect(toList());
 	}
-	
+
 	@Override
 	public List<LayoutDto> findByCarId(Long carId) {
-		return layoutRepository.findByCarCarId(carId).stream()
+		return layoutRepository.findByCarCarId(carId)
+				.stream()
 				.map(layoutMapper::layoutToLayoutDto)
 				.collect(toList());
 	}
@@ -72,22 +73,30 @@ public class LayoutServiceImpl implements LayoutService {
 	@Override
 	public LayoutDto findById(Long layoutId) {
 		return layoutRepository.findById(layoutId)
-				.map(layoutMapper::layoutToLayoutDto)
-				.orElseThrow(EntityNotFoundException::new);
+					.map(layoutMapper::layoutToLayoutDto)
+					.orElseThrow(EntityNotFoundException::new);
 	}
 
 	@Override
 	public LayoutDto findByName(String layoutName) {
 		return layoutRepository.findByLayoutName(layoutName)
-				.map(layoutMapper::layoutToLayoutDto)
-				.orElseThrow(EntityNotFoundException::new);
+					.map(layoutMapper::layoutToLayoutDto)
+					.orElseThrow(EntityNotFoundException::new);
+	}
+
+	
+	
+	@Override
+	public byte[] getLayoutTemplatePreview(final Long layoutId) {
+		return layoutRepository.findById(layoutId)
+					.map(Layout::getTemplatePreview)
+					.orElseThrow(EntityNotFoundException::new);
 	}
 
 	@Override
 	public void deleteLayout(Long layoutId) {
-		final Layout layout = layoutRepository.findById(layoutId)
-				.orElseThrow(EntityNotFoundException::new);
-		
+		final Layout layout = layoutRepository.findById(layoutId).orElseThrow(EntityNotFoundException::new);
+
 		layoutRepository.delete(layout);
 	}
 }
