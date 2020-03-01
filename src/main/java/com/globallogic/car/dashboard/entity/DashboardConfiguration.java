@@ -16,9 +16,12 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import lombok.Data;
+
 @Entity
 @Table(name = "DASHBOARD_CONFIG", uniqueConstraints = @UniqueConstraint(columnNames = { "USER_ID", "CAR_ID" }))
 @SequenceGenerator(name = "DASHBOARD_CONFIG_SEQ", sequenceName = "DASHBOARD_CONFIG_SEQ", allocationSize = 1)
+@Data
 public class DashboardConfiguration {
 
 	@Id
@@ -43,52 +46,4 @@ public class DashboardConfiguration {
 	@Column(name = "UPDATE_AT", nullable = false, columnDefinition = "TIMESTAMP")
 	@UpdateTimestamp
 	private ZonedDateTime updateAt;
-
-	public Long getConfigurationId() {
-		return configurationId;
-	}
-
-	public void setConfigurationId(Long configurationId) {
-		this.configurationId = configurationId;
-	}
-
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
-
-	public String getFile() {
-		return file;
-	}
-
-	public void setFile(String file) {
-		this.file = file;
-	}
-
-	public Long getCarId() {
-		return carId;
-	}
-
-	public void setCarId(Long carId) {
-		this.carId = carId;
-	}
-
-	public ZonedDateTime getCreateAt() {
-		return createAt;
-	}
-
-	public void setCreateAt(ZonedDateTime createAt) {
-		this.createAt = createAt;
-	}
-
-	public ZonedDateTime getUpdateAt() {
-		return updateAt;
-	}
-
-	public void setUpdateAt(ZonedDateTime updateAt) {
-		this.updateAt = updateAt;
-	}
 }

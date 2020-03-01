@@ -55,6 +55,19 @@ public class LayoutServiceImpl implements LayoutService {
 				.map(layoutMapper::layoutToLayoutDto)
 				.collect(toList());
 	}
+	
+	@Override
+	public List<LayoutDto> findByCarId(Long carId) {
+		return layoutRepository.findByCarCarId(carId).stream()
+				.map(layoutMapper::layoutToLayoutDto)
+				.collect(toList());
+	}
+
+	@Override
+	public void deleteByCarId(Long carId) {
+		final List<Layout> layouts = layoutRepository.findByCarCarId(carId);
+		layoutRepository.deleteAll(layouts);
+	}
 
 	@Override
 	public LayoutDto findById(Long layoutId) {

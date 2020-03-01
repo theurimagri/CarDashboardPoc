@@ -13,5 +13,7 @@ public interface DashboardConfigurationService {
 	
 	DashboardConfigurationDto findByUserAndCarId(Long userId, String userName, Long carId);
 	
+	DashboardConfigurationDto findByUserIdAndCarId(Long userId, Long carId);
+	
 	void deleteDashboardConfiguration(Long configurationId);
 }
