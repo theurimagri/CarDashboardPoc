@@ -40,14 +40,14 @@ public class LayoutController {
 
 	@PostMapping(value = "/layout", consumes = MULTIPART_FORM_DATA)
 	private ResponseEntity<LayoutDto> saveLayout(@RequestPart("layoutDto") final LayoutDto layoutDto, 
-			@RequestPart("file") final MultipartFile layoutImage) throws IOException {
+			@RequestPart(name = "file", required = false) final MultipartFile layoutImage) throws IOException {
 		layoutDto.readFile(layoutImage);
 		return new ResponseEntity<>(layoutService.saveLayout(layoutDto), OK);
 	}
 
 	@PutMapping(value = "/layout", consumes = MULTIPART_FORM_DATA)
 	private ResponseEntity<Void> updateLayout(@RequestPart("layoutDto") final LayoutDto layoutDto, 
-			@RequestPart("file") final MultipartFile layoutImage) throws IOException {
+			@RequestPart(name = "file", required = false) final MultipartFile layoutImage) throws IOException {
 		layoutDto.readFile(layoutImage);
 		layoutService.updateLayout(layoutDto);
 		return new ResponseEntity<>(OK);
