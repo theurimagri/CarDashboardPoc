@@ -11,10 +11,16 @@ public interface LayoutService {
 	void updateLayout(LayoutDto layoutDto);
 
 	List<LayoutDto> findAll();
+	
+	List<LayoutDto> findByCarId(Long carId);
 
 	LayoutDto findById(Long layoutId);
+	
+	byte[] getLayoutTemplatePreview(Long layoutId);
 
 	LayoutDto findByName(String layoutName);
 
 	void deleteLayout(Long layoutId);
+	
+	void deleteByCarId(Long carId);
 }

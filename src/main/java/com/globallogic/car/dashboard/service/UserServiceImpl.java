@@ -30,8 +30,9 @@ public class UserServiceImpl implements UserService {
 	private final UserMapper userMapper;
 	private final CarRepository carRepository;
 
-	public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, CarRepository carRepository) {
-		super();
+	public UserServiceImpl(final UserRepository userRepository, 
+			  			   final UserMapper userMapper, 
+			  			   final CarRepository carRepository) {
 		this.userRepository = userRepository;
 		this.userMapper = userMapper;
 		this.carRepository = carRepository;
@@ -70,7 +71,7 @@ public class UserServiceImpl implements UserService {
 		
 		userRepository.delete(user);
 	}
-
+	
 	private List<Car> getCars(final User user) {
 		if (isNotEmpty(user.getCars())) {
 			return user.getCars()

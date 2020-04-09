@@ -64,6 +64,13 @@ public class DashboardConfigurationServiceImpl implements DashboardConfiguration
 	}
 
 	@Override
+	public DashboardConfigurationDto findByUserIdAndCarId(final Long userId, final Long carId) {
+		return dashboardConfigurationRepository.findDashboardConfigurationByUserIdAndCarId(userId, carId)
+				.map(dashboardConfigurationMapper::dashboardConfigurationToDashboardConfigurationDto)
+				.orElseThrow(() -> new EntityNotFoundException(format("Dashboard configuration not found for userId: %d and carId: %d.", userId, carId)));
+	}
+
+	@Override
 	public void deleteDashboardConfiguration(Long configurationId) {
 		dashboardConfigurationRepository
 			.findById(configurationId)
